@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "library/base.html" %}
 
 {% block content %}
 
@@ -12,4 +12,7 @@
     {% endfor %}
 </ul>
 
+
+   
+<a href="{% url 'library-create' %}"> <button>Add new book</button></a>
 {% endblock content %}
