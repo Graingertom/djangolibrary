@@ -13,7 +13,7 @@ def home(request):
     return render(request, 'home.html', data)
 
 def show(request, id):
-    book = list(books.map(lambda book: book['id'] == id))
-    data = { 'book': book}
+    book = list(filter(lambda book: book['id'] == id, books))
+    data = { 'book': book[0]}
     return render(request, 'show.html', data)
     
