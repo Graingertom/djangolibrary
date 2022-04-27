@@ -1,19 +1,14 @@
 from ast import Lambda
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 
-books = [
-    { 'id': 1, 'title': 'Life, the Universe and Everything', 'author': 'Douglas Adams'},
-    { 'id': 2, 'title': 'The Meaning of Liff', 'author': 'Douglas Adams'},
-    { 'id': 3, 'title': 'The No. 1 Ladies\' Detective Agency', 'author': 'Alexander McCall Smith'}
-]
-
+from .models import Book
 
 def home(request):
-    data = { 'books': books }
+    data = { 'books': Book.objects.all() }
     return render(request, 'home.html', data)
 
 def show(request, id):
-    book = list(filter(lambda book: book['id'] == id, books))
-    data = { 'book': book[0]}
+    book = get_object_or_404(Book, pk=id)
+    data = {'book':book}
     return render(request, 'show.html', data)
     
