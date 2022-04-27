@@ -1,3 +1,4 @@
+from ast import Lambda
 from django.shortcuts import render
 
 books = [
@@ -7,7 +8,12 @@ books = [
 ]
 
 
-
 def home(request):
     data = { 'books': books }
-    return render(request, 'adoption/home.html', data)
+    return render(request, 'home.html', data)
+
+def show(request, id):
+    book = list(books.map(lambda book: book['id'] == id))
+    data = { 'book': book}
+    return render(request, 'show.html', data)
+    
