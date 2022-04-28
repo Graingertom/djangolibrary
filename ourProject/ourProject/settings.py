@@ -31,6 +31,8 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'channels',
+    'chat',
     'email_service.apps.EmailServiceConfig',
     'library.apps.LibraryConfig',
     'users.apps.UsersConfig',
@@ -136,3 +138,13 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = '465'
 EMAIL_USE_TLS = False
 EMAIL_USE_SSL = True
+
+ASGI_APPLICATION = 'ourProject.asgi.application'
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            "hosts": [('127.0.0.1', 6379)],
+        },
+    },
+}

@@ -5,17 +5,16 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/chat.css' %}">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
     <title>Library</title>
 </head>
 <body>
     <nav>
         <div class="linkset left">
             <a href="{% url 'library-home' %}">Home</a>
-        </div>
-
-        <div class="linkset right">
             {% if user.is_authenticated %}
-                <span>Welcome, {{user}}</span>
+                <a href="{% url 'chat' %}">Chat</a>
                 <a href="{% url 'logout' %}">Logout</a>
             {% else %}
                 <a href="{% url 'signup' %}">Sign up</a>
@@ -23,6 +22,8 @@
             {% endif %}
         </div>
     </nav>
+    <!-- <span>Welcome, {{user}}</span> -->
+
 
     {% if messages %}
         {% for message in messages %}

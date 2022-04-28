@@ -3,7 +3,10 @@
 {% block content %}
 
 <h1>{{book.title}}</h1>
+<p id="by">by</p>
+<h2>{{book.author}}</h2>
 
+<div class="centerThis">
 {% if not book.borrower %}
    <p>I'm ready to be borrowed</p>
    <form method="POST">
@@ -25,5 +28,6 @@
    {% endif %}
 
 {% endif %}
+</div>
 
 {% endblock content %}
