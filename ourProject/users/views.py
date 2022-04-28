@@ -8,9 +8,9 @@ def signup(req):
         form = UserSignupForm(req.POST)
         if form.is_valid():
             form.save()
-            username = form.cleaned_data.get('username')
-            messages.success(req, f'Welcome, {username}!')
-            return redirect('library-home')
+            req.session['email'] = form.cleaned_data.get('email')
+            # messages.success(req, f'Welcome, {username}!')
+            return redirect('email')
     else:
         form = UserSignupForm()
     data = {'form': form}

@@ -1,4 +1,3 @@
-from ast import Lambda
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from .forms import NewBookForm, BorrowBookForm
@@ -24,6 +23,7 @@ def show(request, id):
                 book.save()
                 return redirect("library-show", id=id)
     else:
+        print("I am not there")
         form = BorrowBookForm(initial={'borrower': request.user})
     data = {
         'book': book,
