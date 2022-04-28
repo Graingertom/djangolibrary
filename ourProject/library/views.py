@@ -15,14 +15,14 @@ def show(request, id):
     if request.method == 'POST':
         form = BorrowBookForm(request.POST)
         if form.is_valid():
-            book.borrower = request.user
-            book.save()
-            return redirect("library-show", id=id)
-    elif request.method == 'PUT':
-        form = BorrowBookForm(request.PUT)
-        if form.is_valid():
-            book.remove(book.borrower)
-            return redirect("library-show", id=id)
+            if book.borrower == request.user:
+                book.borrower = None
+                book.save()
+                return redirect("library-show", id=id)
+            else:
+                book.borrower = request.user
+                book.save()
+                return redirect("library-show", id=id)
     else:
         form = BorrowBookForm(initial={'borrower': request.user})
     data = {
