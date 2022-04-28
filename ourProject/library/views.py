@@ -1,4 +1,3 @@
-from ast import Lambda
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from .forms import NewBookForm, BorrowBookForm
@@ -15,15 +14,17 @@ def show(request, id):
     if request.method == 'POST':
         form = BorrowBookForm(request.POST)
         if form.is_valid():
-            book.borrower = request.user
-            book.save()
-            return redirect("library-show", id=id)
-    elif request.method == 'PUT':
-        form = BorrowBookForm(request.PUT)
-        if form.is_valid():
-            book.remove(book.borrower)
-            return redirect("library-show", id=id)
+            if book.borrower == request.user:
+                print('I am here')
+                book.borrower = None
+                book.save()
+                return redirect("library-show", id=id)
+            else: 
+                book.borrower = request.user
+                book.save()
+                return redirect("library-show", id=id)
     else:
+        print("I am not there")
         form = BorrowBookForm(initial={'borrower': request.user})
     data = {
         'book': book,
